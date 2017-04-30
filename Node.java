@@ -9,10 +9,14 @@ package hw6;
  *
  * @author ralph
  */
-public class Node<T> {
+public class Node<T  extends Comparable<T>> {
     private T item;
     private Node<T> left;
     private Node<T> right;
+    public Node(T Item)
+    {
+        item =Item;
+    }
     public Node<T>  getLeft()
     {
         return left;
@@ -28,6 +32,9 @@ public class Node<T> {
     public void setRight(Node<T> node){
         right =node;
     
+    }
+    public T getData(){
+        return item;
     }
     
     
