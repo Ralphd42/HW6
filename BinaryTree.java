@@ -16,12 +16,16 @@ public class BinaryTree<T extends Comparable<T>> {
         return true;
     }
     
-    private Node<T> addItem(Node<T>  head, T newItem){
+    private <T extends Comparable<T>> Node<T > addItem(Node<T>  head, T newItem){
         if(head ==null){
             return new Node<T>( newItem);
         }
         
-        if( newItem < head.getData()){
+        if( newItem.compareTo( head.getData())<0){
+            
+        
+        }
+        
             
         
         }
