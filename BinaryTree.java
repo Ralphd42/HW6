@@ -10,30 +10,32 @@ package hw6;
  * @author ralph
  */
 public class BinaryTree<T extends Comparable<T>> {
+
     private Node<T> Head;
-    public boolean AddItem(T newItem)
-    {
+
+    public boolean AddItem(T newItem) {
         return true;
     }
     
-    private <T extends Comparable<T>> Node<T > addItem(Node<T>  head, T newItem){
-        if(head ==null){
-            return new Node<T>( newItem);
+    private <T extends Comparable<T>> Node<T> addItem(Node<T> head, T newItem) {
+        if (head == null) {
+            return new Node<>(newItem);
+        }
+        if (newItem.compareTo(head.getData()) == 0) {
+            return head;
         }
         
-        if( newItem.compareTo( head.getData())<0){
-            
         
+        if (newItem.compareTo(head.getData()) < 0) {
+            head.setLeft(addItem(head.getLeft(), newItem));
+
         }
-        
-            
-        
+        if (newItem.compareTo(head.getData()) > 0) {
+            head.setLeft(addItem(head.getLeft(), newItem));
+
         }
-    
-    
-    
-    
+        return head;
+
     }
-    
-    
+
 }
