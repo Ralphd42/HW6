@@ -10,6 +10,9 @@ a counter associated with it if it is in the tree.
  */
 package hw6;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *
  * @author ralph
@@ -82,19 +85,79 @@ private void printTree( Node<T> head)
 }
 
 
-public boolean RemoveNode( T item, Node<T> current, Node<T> parent)
+public boolean RemoveNode(T item)
 {
-    if ( current==null)
-    {
+    if( Head ==null){
         return false;
     
     }
-    // It is a match
-    if( item.compareTo(current.getData())==0){
-        if( current.   )
+    if( Head.isLeaf())
+    {
+        if( Head.getData().compareTo(item)!=0)
+        {
+            return false;
+        }else
+        {
+            Head=null;
+            return true;
+        
+        }
+    }
+    // not a leaf
+    return (RemoveNode( item,Head, null));
+
+}
+
+
+
+
+public boolean RemoveNode( T item, Node<T> current, Node<T> parent)
+{
+    if( item.compareTo(current.getData())<0){
+        if (current.getLeft()!=null){
+            return RemoveNode(item,current.getLeft(),current);
+        
+        }else
+        {
+            return false;
+        
+        }
+    }else if( item.compareTo(current.getData())<0){
+        if (current.getRight()!=null){
+            return RemoveNode(item,current.getRight(),current);
+        
+        }else
+        {
+            return false;
+        }
+    }
+    // it is equal
+    // handle the leaf first
+    
+    if(current.isLeaf()){
+    // easiest case just remove from parent
+    if( current== parent.getLeft())
+    {
+        parent.setLeftNode(null);
         
     
+    }else{
+        parent.setRightNode(null);
+        
     }
+    }
+    
+// handle most difficult case
+    if( current.hasBothSides()){
+        current.setData( current.getRight().minValue());
+        RemoveNode(current.getData(),current.getRight(),current);
+    }
+    
+    
+    
+    
+    
+        return true;
     }
 
 }
