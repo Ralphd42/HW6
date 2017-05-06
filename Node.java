@@ -25,17 +25,38 @@ public class Node<T  extends Comparable<T>> {
     {
         return right;
     }
-    public void setLeft(Node<T> node){
-        left =node;
+    public void setLeft(T leftData){
+        left =new Node(leftData);
     
     }
-    public void setRight(Node<T> node){
-        right =node;
+    
+    public void setLeft(Node<T> leftData){
+        left =leftData;
     
     }
+    public void setRight(T rightData){
+        right =new Node(rightData);
+    
+    }
+    
+    public void setRight(Node<T>  rightData){
+        right = rightData;
+    
+    }
+    
     public T getData(){
         return item;
     }
     
+    public boolean isLeaf()
+    {
+        boolean retval =false;
+        if( left==null && right ==null){
+            retval =true;
+        }
+        return retval;
+            }
+    
+    }
     
 }
