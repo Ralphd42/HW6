@@ -10,46 +10,85 @@ a counter associated with it if it is in the tree.
  */
 package hw6;
 
-import java.util.HashSet;
-import java.util.Set;
+/*
+• search—finds and returns the node that matches a search key (if it exists; otherwise return
+null)
+• insert—inserts a node into the tree
+• delete—deletes a node from the tree
+• print—traverse (inorder) and print each node
 
+
+
+
+
+
+*/
 /**
  *
  * @author ralph
  */
 public class BinaryTree<T extends Comparable<T>> {
 
-    private Node<T> Head;
+    private Node<T> Head; // this is the head of the Binary tree
 
-    public boolean AddItem(T newItem) {
-        return true;
+    /***
+     * Public AddItem for adding Item to Tree
+     * @param newItem the Item to add
+     */
+    public void AddItem(T newItem) {
+        if( Head==null){
+            Head = new Node(newItem);
+        }else{
+            addItem(Head,newItem);
+        
+        }
     }
     
+    
+    /***
+     * 
+     * @param <T>   the datatype of the item
+     * @param head node to start at in adding 
+     * @param newItem  the itme to add
+     * @return The Head of the 
+     */
     private <T extends Comparable<T>> Node<T> addItem(Node<T> head, T newItem) {
-        if (head == null) {
-            return new Node<>(newItem);
+        if( head==null){
+            return new Node(newItem);
         }
-       // if (newItem.compareTo(head.getData()) == 0) {
-        //    return head;
-        //}
-        
+            
         
         if (newItem.compareTo(head.getData()) < 0) {
-            head.setLeft(addItem(head.getLeft(), newItem));
+            head.setLeftNode(addItem(head.getLeft(), newItem));
 
         }
         if (newItem.compareTo(head.getData()) > 0) {
-            head.setRight(addItem(head.getRight(), newItem));
+            head.setRightNode(addItem(head.getRight(), newItem));
 
         }
+        if (newItem.compareTo(head.getData()) == 0) {
+            head.incCount();
+
+        }
+        
         return head;
 
     }
     
-    
+  /**
+   * This is the search function.
+   * @param searchItem the itme to search for
+   * @return The item to search for or null if not found
+   */  
 public T Search(T searchItem)
 {
-    return Search(Head,searchItem).getData();
+    Node<T> retval =Search(Head,searchItem);
+    if(retval!=null){
+        return retval.getData();
+    }else
+    {
+        return null;
+    }
 }
     
 private Node<T> Search (Node<T> head, T searchItem){
@@ -122,7 +161,7 @@ public boolean RemoveNode( T item, Node<T> current, Node<T> parent)
             return false;
         
         }
-    }else if( item.compareTo(current.getData())<0){
+    }else if( item.compareTo(current.getData())>0){
         if (current.getRight()!=null){
             return RemoveNode(item,current.getRight(),current);
         
@@ -153,7 +192,12 @@ public boolean RemoveNode( T item, Node<T> current, Node<T> parent)
         RemoveNode(current.getData(),current.getRight(),current);
     }
     
-    
+     else if (current== parent.getLeft()) {
+                        parent.setLeftNode((current.getLeft() != null) ? current.getLeft() : current.getRight());
+          
+                  } else  {
+                        parent.setRightNode((current.getLeft() != null) ? current.getLeft() : current.getRight());
+                  }
     
     
     
@@ -163,4 +207,4 @@ public boolean RemoveNode( T item, Node<T> current, Node<T> parent)
 }
 
 
-}
+
