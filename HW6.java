@@ -69,7 +69,14 @@ public class HW6 {
         } else if (args[0].equals("-f")) {
             // test using integer array files
             String fname = args[1];
-            List<String> testSentances = LoadFile("");
+            BinaryTree<String> stringTree = new BinaryTree<>();
+            List<String> testSentances = LoadFile(fname);
+            for( String s : testSentances){
+                
+            
+            
+            }
+            
         
         }
         

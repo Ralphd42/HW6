@@ -52,6 +52,16 @@ public class BinaryTree<T extends Comparable<T>>  implements Iterable<Node<T>>{
         }
     }
 
+    /***
+     * Empties the tree
+     */
+    public void EmptyTree(){
+    
+        Head =null;
+    
+    }    
+    
+    
     /**
      * *
      *
