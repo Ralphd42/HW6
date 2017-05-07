@@ -252,9 +252,9 @@ public class BinaryTree<T extends Comparable<T>>  implements Iterable<Node<T>>{
             if(root==null){
                 return;
             }
-            fillStack(root.getLeft());
-            stack.push(root);
             fillStack(root.getRight());
+            stack.push(root);
+            fillStack(root.getLeft());
         }
     }
 }
