@@ -58,6 +58,11 @@ public class TreeTestForm extends javax.swing.JFrame {
         });
 
         jToggleButton1.setText("Search");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,6 +128,25 @@ public class TreeTestForm extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnRemoveActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        String Srch = testTree.Search(getInput());
+        if(Srch==null){
+            String Msg = String.format("String %s does not exist in tree!", getInput());
+            
+            JOptionPane.showMessageDialog(null,
+                    "Item Not Found", Msg, JOptionPane.INFORMATION_MESSAGE);
+        
+        }else{
+            String Msg = String.format("String %s found in tree!", getInput());
+            
+            JOptionPane.showMessageDialog(null,
+                    "Item Found", Msg, JOptionPane.INFORMATION_MESSAGE);
+        
+        
+        }
+        UpdateOutput();
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
     
     
     

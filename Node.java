@@ -19,7 +19,7 @@ public class Node<T extends Comparable<T>> {
      */
     public Node(T Item) {
         item = Item;
-        count=1;
+        count = 1;
     }
 
     /**
@@ -135,8 +135,9 @@ public class Node<T extends Comparable<T>> {
     }
 
     /**
-     *  minimum value of tree created by this node
-     * @return minimum value of tree with this node as head 
+     * minimum value of tree created by this node
+     *
+     * @return minimum value of tree with this node as head
      */
     public T minValue() {
         if (left == null) {
@@ -146,40 +147,47 @@ public class Node<T extends Comparable<T>> {
         }
     }
 
-    /***
+    /**
+     * *
      * increments count for this node
      */
     public void incCount() {
         count++;
     }
-    
+
     /**
      * gets count for this node
-     * @return 
+     *
+     * @return
      */
-    public long getCount(){
+    public long getCount() {
         return count;
-    
+
     }
-    
-    /***
-     * sets the count for this item
-     * only used in delete function
-     * @param count number of items  
+
+    /**
+     * *
+     * sets the count for this item only used in delete function
+     *
+     * @param count number of items
      */
-    public void setCount(long count){
+    public void setCount(long count) {
         this.count = count;
-    
+
     }
-            
-     public String toString() {
-         StringBuilder sb = new StringBuilder();
-         sb.append(item);
-         sb.append(" ");
-         sb.append(count);
-         
-         return sb.toString();
-     } 
-    
+
+    /**
+     * *
+     *override of toString
+     * @return string representation of the node
+     */
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(item);
+        sb.append(" ");
+        sb.append(count);
+
+        return sb.toString();
+    }
 
 }

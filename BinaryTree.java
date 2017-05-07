@@ -1,38 +1,15 @@
-/*
- • search—finds and returns the node that matches a search key (if it exists; otherwise return
-null)
-• insert—inserts a node into the tree
-• delete—deletes a node from the tree
-• print—traverse (inorder) and print each node
-• any methods you need to solve the problem of using a tree to make a word frequency his-
-togram. You should be able to read a file and add a word if it isn’t in the tree yet and update
-a counter associated with it if it is in the tree.
- */
 package hw6;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
-/*
-• search—finds and returns the node that matches a search key (if it exists; otherwise return
-null)
-• insert—inserts a node into the tree
-• delete—deletes a node from the tree
-• print—traverse (inorder) and print each node
-
-
-
-
-
-
- */
 /**
  * Binary tree with counting of like items
  *
  * @author ralph
  */
-public class BinaryTree<T extends Comparable<T>>  implements Iterable<Node<T>>{
+public class BinaryTree<T extends Comparable<T>> implements Iterable<Node<T>> {
 
     private Node<T> Head; // this is the head of the Binary tree
 
@@ -52,16 +29,16 @@ public class BinaryTree<T extends Comparable<T>>  implements Iterable<Node<T>>{
         }
     }
 
-    /***
+    /**
+     * *
      * Empties the tree
      */
-    public void EmptyTree(){
-    
-        Head =null;
-    
-    }    
-    
-    
+    public void EmptyTree() {
+
+        Head = null;
+
+    }
+
     /**
      * *
      *
@@ -222,8 +199,16 @@ public class BinaryTree<T extends Comparable<T>>  implements Iterable<Node<T>>{
         if (current.hasBothSides()) {
             current.setData(current.getRight().minValue());
             current.setCount(current.getRight().getCount());
-            
+
             RemoveNode(current.getData(), current.getRight(), current);
+        } else if (parent == null) {
+            if (current.getLeft() != null) {
+                Head = current.getLeft();
+
+            } else {
+                Head = current.getRight();
+            }
+
         } else if (current == parent.getLeft()) {
             parent.setLeftNode((current.getLeft() != null) ? current.getLeft() : current.getRight());
 
@@ -234,23 +219,46 @@ public class BinaryTree<T extends Comparable<T>>  implements Iterable<Node<T>>{
         return true;
     }
 
+    /***
+     * This is the iterator
+     * @return 
+     */
     @Override
     public Iterator<Node<T>> iterator() {
         return new TreeIterator(this);
     }
-    class TreeIterator implements Iterator<Node<T>>{
-        private BinaryTree tree;
-        private Stack<Node<T>> stack;
-        TreeIterator(BinaryTree Tree){
+
+    /***
+     * Iterator for the Binary Tree
+     */
+    class TreeIterator implements Iterator<Node<T>> {
+
+        private BinaryTree tree;  //private reference to the tree
+        private Stack<Node<T>> stack; // a stack used for iterating
+        
+        /**
+         * the constructor
+         * @param Tree  reference to the tree
+         */
+        TreeIterator(BinaryTree Tree) {
             tree = Tree;
             stack = new Stack<>();
             fillStack(Head);
         }
+
+        /**
+         * Indicates if there is a next node
+         * @return true if there is a next node
+         */
         @Override
         public boolean hasNext() {
-           return !stack.isEmpty();
+            return !stack.isEmpty();
         }
 
+        /**
+         * Gets next node for iteration
+         * @return the next node in the iterator
+         */
         @Override
         public Node<T> next() {
             if (!hasNext()) {
@@ -258,8 +266,14 @@ public class BinaryTree<T extends Comparable<T>>  implements Iterable<Node<T>>{
             }
             return stack.pop();
         }
-        private void fillStack(Node<T> root){
-            if(root==null){
+
+        /**
+         * This fills the stack that is used for iteration
+         * @param root takes root of tree to start with
+         * NOTE that since this uses a stack they go on in opposite order
+         */
+        private void fillStack(Node<T> root) {
+            if (root == null) {
                 return;
             }
             fillStack(root.getRight());
