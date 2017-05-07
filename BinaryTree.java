@@ -10,6 +10,10 @@ a counter associated with it if it is in the tree.
  */
 package hw6;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Stack;
+
 /*
 • search—finds and returns the node that matches a search key (if it exists; otherwise return
 null)
@@ -28,7 +32,7 @@ null)
  *
  * @author ralph
  */
-public class BinaryTree<T extends Comparable<T>> {
+public class BinaryTree<T extends Comparable<T>>  implements Iterable<Node<T>>{
 
     private Node<T> Head; // this is the head of the Binary tree
 
@@ -220,4 +224,37 @@ public class BinaryTree<T extends Comparable<T>> {
         return true;
     }
 
+    @Override
+    public Iterator<Node<T>> iterator() {
+        return new TreeIterator(this);
+    }
+    class TreeIterator implements Iterator<Node<T>>{
+        private BinaryTree tree;
+        private Stack<Node<T>> stack;
+        TreeIterator(BinaryTree Tree){
+            tree = Tree;
+            stack = new Stack<>();
+            fillStack(Head);
+        }
+        @Override
+        public boolean hasNext() {
+           return !stack.isEmpty();
+        }
+
+        @Override
+        public Node<T> next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return stack.pop();
+        }
+        private void fillStack(Node<T> root){
+            if(root==null){
+                return;
+            }
+            fillStack(root.getLeft());
+            stack.push(root);
+            fillStack(root.getRight());
+        }
+    }
 }
