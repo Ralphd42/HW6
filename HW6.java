@@ -6,9 +6,13 @@
 package hw6;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -67,20 +71,33 @@ public class HW6 {
             }
 
         } else if (args[0].equals("-f")) {
+            //  -f TEST tout
             // test using integer array files
             String fname = args[1];
             BinaryTree<String> stringTree = new BinaryTree<>();
             List<String> testSentances = LoadFile(fname);
             for( String s : testSentances){
+                FillTreeWithSentance(s, stringTree);
                 
-            
-            
+                if (args.length > 2) {
+                    SaveTreeToFile(s,stringTree,args[2]            );
+                
+                }
+                stringTree.EmptyTree();
             }
             
         
-        }
+        }else if (args[0].equals("-u")) {
+            // test using a
+            // user interface
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new TreeTestForm().setVisible(true);
+            }
+        });
         
-    }
+    }}
+    
     public static List<String> LoadFile ( String FullFileName){
         List<String> retval = new LinkedList<String>();
         
@@ -111,9 +128,59 @@ public class HW6 {
     {   
         String[] words = Sentance.split("\\W+");
         for( String word : words){
-            tree.AddItem(word);
+            tree.AddItem(word.toLowerCase());
         }
-        System.out.println(Sentance);
+        
+        TextHeader(Sentance);
         tree.printTree();
     }
+    
+    /**
+     * *
+     * tester function for easy printing of text to console
+     *
+     * @param header
+     */
+    public static void TextHeader(String header) {
+        System.out.println();
+        System.out.println(header);
+        div();
+
+    }
+
+    /**
+     * helper function for making div in console
+     */
+    public static void div() {
+        System.out.println("----------------------------------");
+    }
+    
+    /**
+     * *
+     * outputs a list to a file
+     *
+     * @param list takes any type of list
+     * @param FullFileName the outputfile name
+     */
+    public static void SaveTreeToFile(String Sentance, BinaryTree<String> tree, String FullFileName) {
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(FullFileName,true), "utf-8"))) {
+            
+             writer.write(Sentance);
+             writer.write("\n");
+             
+            for (Object srted : tree) {
+                writer.write(srted.toString());
+                writer.write("\n");
+            }
+            writer.write("\n");
+        } catch (IOException IOexp) {
+            System.err.println("Error outputting File");
+            System.err.println(IOexp);
+        }
+
+    }
+
+    
+    
 }
